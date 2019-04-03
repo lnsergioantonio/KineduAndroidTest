@@ -2,9 +2,11 @@ package com.lnsergioantonio.kinedutest.data.api;
 
 import android.util.Log;
 
+import com.lnsergioantonio.kinedutest.BuildConfig;
 import com.lnsergioantonio.kinedutest.data.api.activities.ActivitiesResponse;
 import com.lnsergioantonio.kinedutest.data.api.article.DataResponse;
 import com.lnsergioantonio.kinedutest.data.api.articles.ArticlesResponse;
+import com.lnsergioantonio.kinedutest.utils.AssetsPropertyReader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,13 +16,20 @@ public class KineduService {
     private static final String TAG = "KineduService";
     private IServiceListener listener;
     private IKineduService service;
+    private String token;
+    private int skillId,babyId;
 
-    public KineduService(IServiceListener listener) {
+    public KineduService(IServiceListener listener, AssetsPropertyReader assetsPropertyReader) {
         this.listener = listener;
-        this.service = new ApiClient().getClient().create(IKineduService.class);
+
+        this.babyId = Integer.parseInt(assetsPropertyReader.getProperties(BuildConfig.FILE_NAME_PROPERTIES).getProperty(BuildConfig.BABY_ID));
+        this.skillId = Integer.parseInt(assetsPropertyReader.getProperties(BuildConfig.FILE_NAME_PROPERTIES).getProperty(BuildConfig.SKILL_ID));
+        this.token = assetsPropertyReader.getProperties(BuildConfig.FILE_NAME_PROPERTIES).getProperty(BuildConfig.TOKEN);
+
+        this.service = new ApiClient().getClient(assetsPropertyReader).create(IKineduService.class);
     }
 
-    public void getActivities(String token,int skillId,int babyId){
+    public void getActivities(){
         Call<ActivitiesResponse> responseCall = service.getActivities(token,skillId,babyId);
 
         responseCall.enqueue(new Callback<ActivitiesResponse>() {
@@ -42,7 +51,7 @@ public class KineduService {
         });
     }
 
-    public void getArticles(String token,int skillId,int babyId){
+    public void getArticles(){
         Call<ArticlesResponse> responseCall = service.getArticles(token,skillId,babyId);
 
         responseCall.enqueue(new Callback<ArticlesResponse>() {

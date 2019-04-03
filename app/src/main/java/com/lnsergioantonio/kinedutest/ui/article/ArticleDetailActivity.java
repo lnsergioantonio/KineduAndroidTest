@@ -1,6 +1,8 @@
 package com.lnsergioantonio.kinedutest.ui.article;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.View;
@@ -20,14 +22,20 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleM
     private TextView labelTitle;
     private ImageButton btnShare;
     private WebView webViewBody;
-
+    private ConstraintLayout layerTitle;
     private ArticleMvp.Presenter presenter;
     private ProgressBar progressBar;
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
-        presenter = new ArticlePresenter(this);
+        presenter = new ArticlePresenter(this,this);
         bind();
 
         Bundle bundle = getIntent().getExtras();
@@ -38,11 +46,19 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleM
     }
 
     private void bind() {
+        Toolbar toolbar = findViewById(R.id.activity_article_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled (true);
+        }
+
         imagePicture = findViewById(R.id.activity_article_picture);
         labelTitle = findViewById(R.id.activity_article_title);
         btnShare = findViewById(R.id.activity_article_button);
         webViewBody = findViewById(R.id.activity_article_webView);
         progressBar = findViewById(R.id.activity_article_progressBar);
+        layerTitle = findViewById(R.id.title_activity_layer);
     }
 
     @Override
@@ -81,16 +97,14 @@ public class ArticleDetailActivity extends AppCompatActivity implements ArticleM
     @Override
     public void hideArticleDetail() {
         imagePicture.setVisibility(View.GONE);
-        labelTitle.setVisibility(View.GONE);
-        btnShare.setVisibility(View.GONE);
+        layerTitle.setVisibility(View.GONE);
         webViewBody.setVisibility(View.GONE);
     }
 
     @Override
     public void showArticleDetail() {
         imagePicture.setVisibility(View.VISIBLE);
-        labelTitle.setVisibility(View.VISIBLE);
-        btnShare.setVisibility(View.VISIBLE);
+        layerTitle.setVisibility(View.VISIBLE);
         webViewBody.setVisibility(View.VISIBLE);
     }
 }

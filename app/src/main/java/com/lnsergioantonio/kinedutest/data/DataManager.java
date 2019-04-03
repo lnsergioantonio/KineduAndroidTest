@@ -11,10 +11,9 @@ public interface DataManager {
     void setArticlesIntractor(ArticlesIntractor.onFinishListener intractor);
     void setArticleDetailIntractor(ArticleIntractor.onFinishListener intractor);
 
-    void getArticles(String token, int babyId, int skillId);
-    void getActivities(String token, int babyId, int skillId);
-    void getArticle(String token, int articleId);
-    String getToken();
+    void getArticles();
+    void getActivities();
+    void getArticle(int articleId);
 
     void setListActivities(ArrayList<Activities> activitiesArrayList);
     void setListArticles(ArrayList<Articles> articlesArrayList);

@@ -9,12 +9,13 @@ public interface ArticlesChildMvp {
     interface View{
         void showLoading();
         void hideLoading();
+        void showContent();
+        void hideContent();
         void setDataToRecyclerView(ArrayList<Articles> articlesList);
         void showError(String error);
     }
 
     interface Presenter{
         void requestArticles();
-        ArrayList<Articles> getListArticles();
     }
 }

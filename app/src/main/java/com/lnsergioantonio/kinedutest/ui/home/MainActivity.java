@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.viewpager);
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_catalog);
+
+        ArrayAdapter adapterArraySpinner = ArrayAdapter.createFromResource(this, R.array.monthSpinner, R.layout.spinner_item);
+        adapterArraySpinner.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        filterMonth.setAdapter(adapterArraySpinner);
 
         filterMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

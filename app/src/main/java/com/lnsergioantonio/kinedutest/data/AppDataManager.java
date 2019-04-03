@@ -1,23 +1,27 @@
 package com.lnsergioantonio.kinedutest.data;
 
+import com.lnsergioantonio.kinedutest.BuildConfig;
 import com.lnsergioantonio.kinedutest.data.api.IServiceListener;
 import com.lnsergioantonio.kinedutest.data.api.KineduService;
 import com.lnsergioantonio.kinedutest.data.api.activities.Activities;
 import com.lnsergioantonio.kinedutest.data.api.article.Article;
 import com.lnsergioantonio.kinedutest.data.api.articles.Articles;
 import com.lnsergioantonio.kinedutest.data.preferences.AppPreferences;
+import com.lnsergioantonio.kinedutest.utils.AssetsPropertyReader;
 
 import java.util.ArrayList;
 
 public class AppDataManager implements DataManager, IServiceListener {
+    private final AssetsPropertyReader propertyReader;
     private KineduService service;
     private DataManager.ActivitiesIntractor.onFinishListener activitiesIntractor;
     private DataManager.ArticlesIntractor.onFinishListener articlesIntractor;
     private DataManager.ArticleIntractor.onFinishListener articleIntractor;
     private AppPreferences preferences;
 
-    public AppDataManager(AppPreferences appPreferences) {
-        this.service = new KineduService(this);
+    public AppDataManager(AppPreferences appPreferences, AssetsPropertyReader assetsPropertyReader) {
+        this.propertyReader = assetsPropertyReader;
+        this.service = new KineduService(this,propertyReader);
         this.preferences = appPreferences;
     }
 
@@ -37,33 +41,29 @@ public class AppDataManager implements DataManager, IServiceListener {
     }
 
     @Override
-    public void getArticles(String token, int babyId, int skillId) {
+    public void getArticles() {
         ArrayList<Articles> articlesArrayList = preferences.getArticles();
         if(articlesArrayList == null)
-            service.getArticles(token,babyId,skillId);
+            service.getArticles();
         else
             articlesIntractor.onSuccess(articlesArrayList);
     }
 
     @Override
-    public void getActivities(String token, int babyId, int skillId) {
+    public void getActivities() {
         ArrayList<Activities> activitiesArrayList = preferences.getActivities();
         if(activitiesArrayList == null)
-            service.getActivities(token,babyId,skillId);
+            service.getActivities();
         else
             activitiesIntractor.onSuccess(activitiesArrayList);
 
     }
 
     @Override
-    public void getArticle(String token, int articleId) {
-        service.getArticle(token,articleId);
+    public void getArticle(int articleId) {
+        service.getArticle(articleId);
     }
 
-    @Override
-    public String getToken() {
-        return "Token token=5105f4358e45f6f98057a654c882b7742c3ac5241c81a706acc48c84f8acde9f8a344993ac42369627ae9f2caf1eed42ff1be9562fe2167c9c80908e76e95c49";
-    }
 
     @Override
     public void setListActivities(ArrayList<Activities> activitiesArrayList) {

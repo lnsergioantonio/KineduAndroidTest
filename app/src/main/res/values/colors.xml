@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="titleColorActivities">#2CADDD</color>
+    <color name="colorPrimary">#2276B9</color>
+    <color name="colorPrimaryDark">#1C5F91</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorBlueGray">#ADC2FF</color>
+
+    <color name="titleColorActivities">#ADC2DD</color>
+    <color name="colorNavigationBottom">#E3E8EC</color>
 </resources>
+

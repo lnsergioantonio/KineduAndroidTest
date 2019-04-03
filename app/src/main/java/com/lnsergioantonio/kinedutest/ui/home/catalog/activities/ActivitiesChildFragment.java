@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,7 @@ public class ActivitiesChildFragment extends Fragment implements ActivitiesChild
     private CellActivitiesRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
     private ActivitiesChildMvp.Presenter presenter;
-
+    private NestedScrollView layoutContent;
     public static ActivitiesChildFragment newInstance(int position) {
         Bundle args = new Bundle();
         args.putInt(ARGUMENT_POSITION, position);
@@ -45,6 +46,8 @@ public class ActivitiesChildFragment extends Fragment implements ActivitiesChild
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_catalog_activities, container, false);
         activitiesRecyclerView = view.findViewById(R.id.fragment_catalog_activities_recyclerview);
+        layoutContent = view.findViewById(R.id.fragment_catalog_activities_content);
+
         progressBar = view.findViewById(R.id.fragment_catalog_activities_progressBar);
         return view;
     }
@@ -64,6 +67,16 @@ public class ActivitiesChildFragment extends Fragment implements ActivitiesChild
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showContent() {
+        layoutContent.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideContent() {
+        layoutContent.setVisibility(View.GONE);
     }
 
     @Override

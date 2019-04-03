@@ -9,6 +9,8 @@ public interface ActivitiesChildMvp {
     interface View{
         void showLoading();
         void hideLoading();
+        void showContent();
+        void hideContent();
         void setDataToRecyclerView(ArrayList<Activities> activitiesList);
         void updateAdapterActivities(String month);
         void showError(String error);

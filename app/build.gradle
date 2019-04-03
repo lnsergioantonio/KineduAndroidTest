@@ -17,6 +17,19 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "FILE_NAME_PROPERTIES", "\"app.properties\""
+            buildConfigField "String", "BASE_URL", "\"BASE_URL_PROD\""
+            buildConfigField "String", "TOKEN", "\"TOKEN_PROD\""
+            buildConfigField "String", "SKILL_ID", "\"SKILL_ID_PROD\""
+            buildConfigField "String", "BABY_ID", "\"BABY_ID_PROD\""
+        }
+        debug {
+            buildConfigField "String", "FILE_NAME_PROPERTIES", "\"app.properties\""
+            buildConfigField "String", "BASE_URL", "\"BASE_URL_DEV\""
+            buildConfigField "String", "TOKEN", "\"TOKEN_DEV\""
+            buildConfigField "String", "SKILL_ID", "\"SKILL_ID_DEV\""
+            buildConfigField "String", "BABY_ID", "\"BABY_ID_DEV\""
         }
     }
 }

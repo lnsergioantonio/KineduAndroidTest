@@ -6,13 +6,14 @@ import com.lnsergioantonio.kinedutest.data.AppDataManager;
 import com.lnsergioantonio.kinedutest.data.DataManager;
 import com.lnsergioantonio.kinedutest.data.api.article.Article;
 import com.lnsergioantonio.kinedutest.data.preferences.AppPreferences;
+import com.lnsergioantonio.kinedutest.utils.AssetsPropertyReader;
 
 public class ArticlePresenter implements ArticleMvp.Presenter, DataManager.ArticleIntractor.onFinishListener {
     private ArticleMvp.View view;
     private AppDataManager dataManager;
-    public ArticlePresenter(ArticleMvp.View view) {
+    public ArticlePresenter(ArticleMvp.View view,Context context) {
         this.view = view;
-        this.dataManager = new AppDataManager(new AppPreferences((Context) view));
+        this.dataManager = new AppDataManager(new AppPreferences(context),new AssetsPropertyReader(context));
         dataManager.setArticleDetailIntractor(this);
     }
 
@@ -20,7 +21,7 @@ public class ArticlePresenter implements ArticleMvp.Presenter, DataManager.Artic
     public void getArticle(int articleId) {
         view.hideArticleDetail();
         view.showProgressbar();
-        dataManager.getArticle(dataManager.getToken(),articleId);
+        dataManager.getArticle(articleId);
     }
 
     @Override

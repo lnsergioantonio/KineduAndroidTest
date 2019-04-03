@@ -20,15 +20,24 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <TextView
+                android:text="@string/title_activity_main"
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_gravity="center" />
+        </androidx.appcompat.widget.Toolbar>
+
         <Spinner
+            style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             android:id="@+id/activity_main_spinner"
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/monthSpinner"/>
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
@@ -41,7 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorNavigationBottom"
+        app:labelVisibilityMode="labeled"
         app:layout_behavior="com.lnsergioantonio.kinedutest.ui.home.BottomNavigationBehavior"
         app:menu="@menu/navigation"/>
 
